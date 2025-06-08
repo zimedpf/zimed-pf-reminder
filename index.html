@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zimed PF Reminder / Rappel Zimed PF</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: #f5f5f5;
+        color: #333;
+        line-height: 1.4;
+      }
+      .faq-content a {
+        color: #02b7c4;
+        text-decoration: underline;
+      }
+      .footer-text {
+        font-size: 0.85em;
+        color: #666;
+        text-align: center;
+        margin: 40px 16px;
+      }
+      .footer-text a {
+        color: #02b7c4;
+        text-decoration: underline;
+      }
+      #modal,
+      #modal-fr {
+        background: #fff;
+        border: 4px solid #02b7c4;
+        border-radius: 16px;
+        width: 90%;
+        max-width: 500px;
+        margin: 20px auto;
+        box-sizing: border-box;
+        padding-bottom: 24px;
+      }
+      #modal header,
+      #modal-fr header {
+        background: #02b7c4;
+        color: #fff;
+        padding: 16px;
+        font-size: 1.3em;
+        font-weight: bold;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        text-align: center;
+      }
+      #modal .content,
+      #modal-fr .content {
+        padding: 16px;
+        text-align: center;
+      }
+      #modal .content p,
+      #modal-fr .content p {
+        margin: 0 0 16px;
+        font-size: 1.1em;
+      }
+      .time-picker {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 12px 0 20px;
+      }
+      .time-picker select,
+      .time-picker .ampm {
+        padding: 12px;
+        font-size: 1.4em;
+        border: 2px solid #00a9a5;
+        border-radius: 6px;
+        appearance: none;
+        -webkit-appearance: none;
+        background: #fff;
+        min-width: 80px;
+        text-align: center;
+      }
+      .time-picker .ampm {
+        border-color: #888;
+        color: #555;
+        cursor: pointer;
+        user-select: none;
+        min-width: 60px;
+      }
+      #modal button,
+      #modal-fr button {
+        background: #02b7c4;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 14px 28px;
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+      .faq-content {
+        max-width: 500px;
+        margin: 0 auto 40px;
+        padding: 0 16px;
+      }
+      .faq-content p {
+        margin: 0 0 16px;
+        font-size: 1.1em;
+      }
+      .faq-content h3 {
+        color: #02b7c4;
+        font-size: 1.2em;
+        margin: 24px 0 8px;
+      }
+      .faq-content .video-link {
+        display: inline-block;
+        background-color: #02b7c4;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.2em;
+        padding: 12px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin: 16px 0 32px;
+        transition: background-color 0.2s;
+      }
+      .video-link:hover,
+      .video-link:focus {
+        background-color: #019fa0;
+      }
+      hr.divider {
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 60px auto;
+        width: 80%;
+      }
+
+      /* Toggle button */
+      #toggle-lang {
+        background: #02b7c4;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 14px 28px;
+        font-size: 1.2em;
+        cursor: pointer;
+        margin: 20px auto;
+        display: block;
+      }
+
+      /* Hidden utility */
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Language toggle -->
+    <button id="toggle-lang">Voir en français</button>
+
+    <!-- English section -->
+    <section lang="en" id="section-en">
+      <div id="modal">
+        <header>You’re being proactive – well done!</header>
+        <div class="content">
+          <p>
+            Please enter your preferred time of evening to take
+            <strong>Zimed PF</strong>:
+          </p>
+          <div class="time-picker">
+            <select id="hour">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10" selected>10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+            <select id="minute">
+              <option value="00" selected>00</option>
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="45">45</option>
+            </select>
+            <div id="ampm" class="ampm">PM</div>
+          </div>
+          <button id="download">Add to Calendar 🗓️</button>
+        </div>
+      </div>
+
+      <div class="faq-content">
+        <p>
+          Usual dose: one drop of <strong>Zimed PF</strong> in each eye that needs
+          treatment, once every day in the evening.
+        </p>
+        <a
+          class="video-link"
+          href="https://youtu.be/SIe-FT7WHyI?si=oQXd8iT6jFX5oY1-"
+          target="_blank"
+        >
+          Learn how to instill a drop of Zimed PF 🎥
+        </a>
+        <h3>What if I miss a dose?</h3>
+        <p>
+          Apply a single drop as soon as you remember and then return to your
+          regular routine.
+        </p>
+        <h3>Remember:</h3>
+        <p>
+          <strong>Don't</strong> use while wearing contact lenses. After putting a
+          drop of Zimed PF in your eye wait 15 minutes before putting your contact
+          lenses back in. <strong>Don't</strong> use simultaneously with another
+          drop, wait at least 5 minutes. <strong>No refrigeration needed</strong>,
+          store Zimed PF between 15ºC and 25ºC.
+        </p>
+        <h3>What if I get red eye?</h3>
+        <p>
+          <strong>Don't worry.</strong> Aqueous humour (fluid in the eye) provides
+          nutrition and removes excretory products. When that flow is interrupted,
+          it can lead to increased eye pressure (IOP) and can result in permanent
+          vision loss. Zimed® PF and others in this class of medication help renew
+          aqueous flow. With this renewed flow, hyperemia (red eye) may occur when
+          the eye’s circulation adapts to cope with the fluid outflow. Over time
+          the flow stabilizes and hyperemia (red eye) returns to baseline.
+        </p>
+        <h3>Where can I learn more about Glaucoma?</h3>
+        <p>
+          ⚕️<a
+            href="https://acrobat.adobe.com/id/urn%3Aaaid%3Asc%3AUS%3A64769bc7-cbbc-4735-a296-bbe39bef1495/?filetype=application%2Fpdf&viewer%21megaVerb=group-discover"
+            target="_blank"
+            >Read the Eye Health Brochure</a
+          ><br />
+          ⚕️<a
+            href="https://acrobat.adobe.com/id/urn%3Aaaid%3Asc%3AUS%3A63460a13-e707-412d-8218-8c4c27ab1e4e/?filetype=application%2Fpdf"
+            target="_blank"
+            >Read the New to Glaucoma Brochure</a
+          ><br />
+          ⚕️<a
+            href="https://acrobat.adobe.com/id/urn%3Aaaid%3Asc%3AUS%3Aee405f6b-6994-40c4-802c-96b6654d61bf/?filetype=application%2Fpdf&viewer%21megaVerb=group-discover"
+            target="_blank"
+          >
+            Read the Understanding Glaucoma Brochure</a
+          >
+        </p>
+      </div>
+
+      <div class="footer-text">
+        <p>
+          For more information on Zimed PF, please see the
+          <a
+            href="https://zimedpf.ca/files/Patient-inert-English.pdf"
+            target="_blank"
+            >Patient Medication Information</a
+          >
+          or contact your Health Care professional.
+        </p>
+      </div>
+    </section>
+
+    <!-- French section hidden by default -->
+    <div id="fr-container" class="hidden">
+      <hr class="divider" />
+      <section lang="fr" id="section-fr">
+        <div id="modal-fr">
+          <header>Vous êtes proactif – bravo !</header>
+          <div class="content">
+            <p>
+              Veuillez entrer l'heure préférée en soirée pour prendre
+              <strong>Zimed PF</strong> :
+            </p>
+            <div class="time-picker">
+              <select id="hour-fr">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected>10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+              <select id="minute-fr">
+                <option value="00" selected>00</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
+              </select>
+              <div id="ampm-fr" class="ampm">PM</div>
+            </div>
+            <button id="download-fr">Ajouter au calendrier 🗓️</button>
+          </div>
+        </div>
+
+        <div class="faq-content">
+          <p>
+            Dose habituelle : une goutte de <strong>Zimed PF</strong> dans chaque œil à
+            traiter, une fois par jour en soirée.
+          </p>
+          <a class="video-link" href="#" target="_blank">
+            Comment instiller une goutte de Zimed PF 🎥
+          </a>
+          <h3>Si j’oublie une dose ?</h3>
+          <p>
+            Instillez une goutte dès que vous vous souvenez, puis reprenez votre
+            routine habituelle.
+          </p>
+          <h3>Rappel :</h3>
+          <p>
+            <strong>N'utilisez pas</strong> avec les lentilles de contact. Attendez 15
+            minutes après l’instillation avant de remettre les lentilles. Attendez au
+            moins 5 minutes entre différents médicaments. <strong>Aucune réfrigération
+            requise</strong>, conservez entre 15 °C et 25 °C.
+          </p>
+          <h3>Si j’ai les yeux rouges ?</h3>
+          <p>
+            <strong>Pas d’inquiétude.</strong> Le Zimed PF améliore le flux de
+            l’humeur aqueuse, réduisant la pression intraoculaire. Une rougeur passagère
+            est normale jusqu’à ce que le flux se stabilise.
+          </p>
+          <h3>En savoir plus sur le glaucome :</h3>
+          <p>
+            ⚕️<a
+              href="https://acrobat.adobe.com/id/urn:aaid:sc:US:b4013fd5-1ae4-4b61-ac90-a2b801911b14"
+              target="_blank"
+              >Brochure sur la santé oculaire</a
+            ><br />
+            ⚕️<a
+              href="https://acrobat.adobe.com/id/urn:aaid:sc:US:ce62ed2d-3781-4507-ae25-0a7c0245a6eb"
+              target="_blank"
+              >Brochure pour les nouveaux patients</a
+            ><br />
+            ⚕️<a
+              href="https://acrobat.adobe.com/id/urn:aaid:sc:US:dbb424c2-9c7d-4ada-abe0-bac36b7ca04a"
+              target="_blank"
+              >Comprendre le glaucome</a
+            >
+          </p>
+        </div>
+
+        <div class="footer-text">
+          <p>
+            Pour en savoir davantage, consultez les
+            <a
+              href="https://zimedpf.ca/files/Patient-inert-French.pdf"
+              target="_blank"
+              >informations sur le médicament</a
+            >
+            ou contactez un professionnel de la santé.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Language toggle
+      const toggleBtn = document.getElementById("toggle-lang");
+      const frContainer = document.getElementById("fr-container");
+      toggleBtn.addEventListener("click", () => {
+        if (frContainer.classList.contains("hidden")) {
+          frContainer.classList.remove("hidden");
+          toggleBtn.textContent = "Voir en anglais";
+          document.getElementById("section-fr").scrollIntoView({ behavior: "smooth" });
+        } else {
+          frContainer.classList.add("hidden");
+          toggleBtn.textContent = "Voir en français";
+          document.getElementById("section-en").scrollIntoView({ behavior: "smooth" });
+        }
+      });
+
+      // English AM/PM toggle & ICS
+      document.getElementById("ampm").addEventListener("click", (e) => {
+        e.target.textContent = e.target.textContent === "PM" ? "AM" : "PM";
+      });
+      document.getElementById("download").addEventListener("click", () => {
+        const h = parseInt(document.getElementById("hour").value, 10);
+        const m = parseInt(document.getElementById("minute").value, 10);
+        const ampm = document.getElementById("ampm").textContent;
+        const hh = (h % 12) + (ampm === "PM" ? 12 : 0);
+        const now = new Date();
+        const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hh, m);
+        const end = new Date(start.getTime() + 5 * 60000);
+        const pad = (n) => String(n).padStart(2, "0");
+        const fmt = (d) =>
+          d.getUTCFullYear() +
+          pad(d.getUTCMonth() + 1) +
+          pad(d.getUTCDate()) +
+          "T" +
+          pad(d.getUTCHours()) +
+          pad(d.getUTCMinutes()) +
+          pad(d.getUTCSeconds()) +
+          "Z";
+        const lines = [
+          "BEGIN:VCALENDAR",
+          "VERSION:2.0",
+          "PRODID:-//Zimed PF Reminder//EN",
+          "BEGIN:VEVENT",
+          `UID:${Date.now()}@zimedpf.com`,
+          `DTSTAMP:${fmt(new Date())}`,
+          `DTSTART:${fmt(start)}`,
+          `DTEND:${fmt(end)}`,
+          "RRULE:FREQ=DAILY",
+          "SUMMARY:REMINDER: Time to take your Zimed PF!",
+          "END:VEVENT",
+          "END:VCALENDAR",
+        ];
+        const blob = new Blob([lines.join("\r\n")], { type: "text/calendar" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "Reminder to take your Zimed PF.ics";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+
+      // French AM/PM toggle & ICS
+      document.getElementById("ampm-fr").addEventListener("click", (e) => {
+        e.target.textContent = e.target.textContent === "PM" ? "AM" : "PM";
+      });
+      document.getElementById("download-fr").addEventListener("click", () => {
+        const h = parseInt(document.getElementById("hour-fr").value, 10);
+        const m = parseInt(document.getElementById("minute-fr").value, 10);
+        const ampm = document.getElementById("ampm-fr").textContent;
+        const hh = (h % 12) + (ampm === "PM" ? 12 : 0);
+        const now = new Date();
+        const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hh, m);
+        const end = new Date(start.getTime() + 5 * 60000);
+        const pad = (n) => String(n).padStart(2, "0");
+        const fmt = (d) =>
+          d.getUTCFullYear() +
+          pad(d.getUTCMonth() + 1) +
+          pad(d.getUTCDate()) +
+          "T" +
+          pad(d.getUTCHours()) +
+          pad(d.getUTCMinutes()) +
+          pad(d.getUTCSeconds()) +
+          "Z";
+        const lines = [
+          "BEGIN:VCALENDAR",
+          "VERSION:2.0",
+          "PRODID:-//Rappel Zimed PF//FR",
+          "BEGIN:VEVENT",
+          `UID:${Date.now()}@zimedpf.com`,
+          `DTSTAMP:${fmt(new Date())}`,
+          `DTSTART:${fmt(start)}`,
+          `DTEND:${fmt(end)}`,
+          "RRULE:FREQ=DAILY",
+          "SUMMARY:RAPPEL : Temps de prendre votre Zimed PF !",
+          "END:VEVENT",
+          "END:VCALENDAR",
+        ];
+        const blob = new Blob([lines.join("\r\n")], { type: "text/calendar" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "Rappel Zimed PF.ics";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+    </script>
+  </body>
+</html>
